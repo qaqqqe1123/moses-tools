@@ -796,6 +796,21 @@ window.SITE_DATA={
           "tags": [
             "官方"
           ]
+        },
+        {
+          "id": "qq-pinyin",
+          "name": "QQ拼音输入法",
+          "desc": "腾讯出品，词库准、占用低，支持全拼 / 双拼",
+          "version": "官方最新",
+          "size": "约 57MB",
+          "platform": "Windows",
+          "official": "https://qq.pinyin.cn/",
+          "download": "https://qq.pinyin.cn/",
+          "tags": [
+            "国内",
+            "官方",
+            "免费"
+          ]
         }
       ]
     },
