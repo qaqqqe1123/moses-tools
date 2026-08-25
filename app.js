@@ -1,3 +1,21 @@
+const NAV_SHORT = {
+  "free-picks": "精选",
+  compress: "压缩",
+  browser: "浏览器",
+  "office-free": "办公",
+  chat: "通讯",
+  remote: "远程",
+  media: "影音",
+  tools: "工具",
+  system: "系统",
+  input: "输入法",
+  games: "游戏",
+  online: "在线",
+  security: "安全",
+};
+
+const NAV_OFFSET = 132;
+
 const state = { data: null, query: "" };
 
 const els = {
@@ -6,12 +24,68 @@ const els = {
   siteTagline: document.getElementById("site-tagline"),
   siteNotice: document.getElementById("site-notice"),
   nav: document.getElementById("nav"),
+  navDrawer: document.getElementById("nav-drawer"),
+  navDrawerGrid: document.getElementById("nav-drawer-grid"),
+  navToggle: document.getElementById("nav-toggle"),
+  navDrawerClose: document.getElementById("nav-drawer-close"),
   categories: document.getElementById("categories"),
   resultCount: document.getElementById("result-count"),
   search: document.getElementById("search"),
   dialog: document.getElementById("detail-dialog"),
   detailBody: document.getElementById("detail-body"),
 };
+
+function navLabel(cat) {
+  return NAV_SHORT[cat.id] || cat.name.replace(/（.*?）/g, "");
+}
+
+function categoryHref(id) {
+  return `#cat-${id}`;
+}
+
+function setActiveNav(id) {
+  const href = categoryHref(id);
+  els.nav.querySelectorAll("a").forEach((a) => {
+    a.classList.toggle("active", a.getAttribute("href") === href);
+  });
+  els.navDrawerGrid?.querySelectorAll("a").forEach((a) => {
+    a.classList.toggle("active", a.getAttribute("href") === href);
+  });
+}
+
+function scrollToCategory(id) {
+  const el = document.getElementById(`cat-${id}`);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+  window.scrollTo({ top, behavior: "smooth" });
+  setActiveNav(id);
+  history.replaceState(null, "", categoryHref(id));
+}
+
+function syncHashNav() {
+  const hash = window.location.hash;
+  if (!hash.startsWith("#cat-")) return;
+  const id = hash.slice(5);
+  setActiveNav(id);
+  window.requestAnimationFrame(() => {
+    const el = document.getElementById(`cat-${id}`);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+    window.scrollTo({ top, behavior: window.scrollY > 40 ? "smooth" : "auto" });
+  });
+}
+
+function openNavDrawer() {
+  els.navDrawer.hidden = false;
+  els.navToggle.setAttribute("aria-expanded", "true");
+  document.body.classList.add("nav-open");
+}
+
+function closeNavDrawer() {
+  els.navDrawer.hidden = true;
+  els.navToggle.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("nav-open");
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -41,9 +115,26 @@ function isOnline(item) {
 }
 
 function renderNav(categories) {
-  els.nav.innerHTML = categories
-    .map((cat) => `<a href="#cat-${escapeHtml(cat.id)}">${escapeHtml(cat.name)}</a>`)
+  const links = categories
+    .map(
+      (cat) =>
+        `<a href="${categoryHref(cat.id)}" data-cat="${escapeHtml(cat.id)}">${escapeHtml(navLabel(cat))}</a>`,
+    )
     .join("");
+
+  els.nav.innerHTML = links;
+  if (els.navDrawerGrid) {
+    els.navDrawerGrid.innerHTML = categories
+      .map(
+        (cat) => `
+        <a class="nav-drawer-item" href="${categoryHref(cat.id)}" data-cat="${escapeHtml(cat.id)}">
+          <span class="nav-drawer-title">${escapeHtml(navLabel(cat))}</span>
+          <span class="nav-drawer-desc">${escapeHtml(cat.desc || cat.name)} · ${cat.items.length} 项</span>
+        </a>
+      `,
+      )
+      .join("");
+  }
 }
 
 function renderItem(item) {
@@ -144,6 +235,27 @@ function bindEvents() {
     renderCatalog();
   });
 
+  const onNavClick = (e) => {
+    const link = e.target.closest("a[data-cat]");
+    if (!link) return;
+    e.preventDefault();
+    scrollToCategory(link.getAttribute("data-cat"));
+    closeNavDrawer();
+  };
+
+  els.nav.addEventListener("click", onNavClick);
+  els.navDrawerGrid?.addEventListener("click", onNavClick);
+
+  els.navToggle?.addEventListener("click", () => {
+    if (els.navDrawer.hidden) openNavDrawer();
+    else closeNavDrawer();
+  });
+
+  els.navDrawerClose?.addEventListener("click", closeNavDrawer);
+  els.navDrawer?.addEventListener("click", (e) => {
+    if (e.target === els.navDrawer) closeNavDrawer();
+  });
+
   els.categories.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-detail]");
     if (!btn) return;
@@ -160,18 +272,27 @@ function bindEvents() {
     }, 1200);
   });
 
-  const links = () => [...els.nav.querySelectorAll("a")];
   const onScroll = () => {
     const sections = [...document.querySelectorAll(".category")];
-    let current = sections[0]?.id;
+    let current = sections[0]?.id?.replace("cat-", "");
     for (const section of sections) {
-      if (section.getBoundingClientRect().top <= 120) current = section.id;
+      if (section.getBoundingClientRect().top <= NAV_OFFSET + 8) {
+        current = section.id.replace("cat-", "");
+      }
     }
-    links().forEach((a) => {
-      a.classList.toggle("active", a.getAttribute("href") === `#${current}`);
-    });
+    if (current) setActiveNav(current);
   };
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("hashchange", syncHashNav);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeNavDrawer();
+  });
+}
+
+function onScrollInit() {
+  const sections = [...document.querySelectorAll(".category")];
+  const current = sections[0]?.id?.replace("cat-", "");
+  if (current) setActiveNav(current);
 }
 
 function boot() {
@@ -193,6 +314,11 @@ function boot() {
     renderNav(state.data.categories);
     renderCatalog();
     bindEvents();
+    if (window.location.hash.startsWith("#cat-")) {
+      setTimeout(syncHashNav, 80);
+    } else {
+      onScrollInit();
+    }
   } catch (err) {
     console.error(err);
     els.categories.innerHTML = `<div class="empty">页面加载出错：${escapeHtml(err.message)}</div>`;
