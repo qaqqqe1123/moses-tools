@@ -9,8 +9,8 @@
   --warn: #f0b429;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
   --radius: 18px;
-  --font: "Noto Sans SC", "DM Sans", system-ui, sans-serif;
-  --display: "DM Sans", "Noto Sans SC", system-ui, sans-serif;
+  --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --display: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
 }
 
 * {
