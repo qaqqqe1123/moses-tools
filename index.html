@@ -15,12 +15,11 @@
     <div class="bg-glow" aria-hidden="true"></div>
 
     <header class="topbar">
-      <div class="wrap topbar-inner">
+      <div class="wrap topbar-row">
         <a class="brand" href="#top">
           <span class="brand-mark">MS</span>
           <span class="brand-text" id="site-name">MOSES</span>
         </a>
-        <nav class="nav" id="nav" aria-label="分类导航"></nav>
         <div class="topbar-right">
           <a
             class="nav-external"
@@ -34,9 +33,27 @@
             <span class="sr-only">搜索软件</span>
             <input id="search" type="search" placeholder="搜索软件或工具…" autocomplete="off" />
           </label>
+          <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-drawer">
+            分类
+          </button>
+        </div>
+      </div>
+      <div class="nav-strip">
+        <div class="wrap nav-wrap">
+          <nav class="nav" id="nav" aria-label="分类导航"></nav>
         </div>
       </div>
     </header>
+
+    <div class="nav-drawer" id="nav-drawer" hidden>
+      <div class="nav-drawer-panel" role="dialog" aria-modal="true" aria-label="全部分类">
+        <div class="nav-drawer-head">
+          <strong>浏览分类</strong>
+          <button class="nav-drawer-close" id="nav-drawer-close" type="button" aria-label="关闭">×</button>
+        </div>
+        <div class="nav-drawer-grid" id="nav-drawer-grid"></div>
+      </div>
+    </div>
 
     <main id="top">
       <section class="hero wrap">
