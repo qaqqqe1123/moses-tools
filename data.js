@@ -429,6 +429,37 @@ window.SITE_DATA={
           ]
         },
         {
+          "id": "asklink",
+          "name": "连连控",
+          "desc": "轻量远控，个人版免费不限时长，支持游戏串流与文件传输",
+          "version": "个人版",
+          "size": "约 66MB",
+          "platform": "Windows",
+          "official": "https://www.asklink.com/zh-CN/",
+          "download": "https://www.asklink.com/zh-CN/download/personal",
+          "tags": [
+            "免费",
+            "国内",
+            "官方"
+          ]
+        },
+        {
+          "id": "uuremote",
+          "name": "UU远程",
+          "desc": "网易出品，免费远控，支持 4K 串流、远程办公与游戏",
+          "version": "官方最新",
+          "size": "约 80MB",
+          "platform": "Windows",
+          "official": "https://uuyc.163.com/",
+          "download": "https://uuyc.163.com/download/",
+          "tags": [
+            "推荐",
+            "免费",
+            "国内",
+            "官方"
+          ]
+        },
+        {
           "id": "anydesk",
           "name": "AnyDesk",
           "desc": "轻量跨平台远程桌面，个人免费使用",
