@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MOSES — 以用户体验为导向，提供更专业的软件下载与在线工具导航服务。"
+    />
+    <title>MOSES · 专业软件与工具导航</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="#top">
+          <span class="brand-mark">MS</span>
+          <span class="brand-text" id="site-name">MOSES</span>
+        </a>
+        <nav class="nav" id="nav" aria-label="分类导航"></nav>
+        <label class="search">
+          <span class="sr-only">搜索软件</span>
+          <input id="search" type="search" placeholder="搜索软件或工具…" autocomplete="off" />
+        </label>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <p class="eyebrow">MOSES Hub</p>
+        <h1 id="site-title">MOSES</h1>
+        <p class="lede" id="site-tagline">以用户体验为导向，提供更专业的服务</p>
+        <p class="notice" id="site-notice"></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#catalog">开始使用</a>
+          <a class="btn btn-ghost" href="#cat-online">在线工具</a>
+        </div>
+      </section>
+
+      <section class="wrap catalog" id="catalog">
+        <div class="catalog-head">
+          <h2>精选目录</h2>
+          <p id="result-count"></p>
+        </div>
+        <div id="categories"></div>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <p><strong>MOSES</strong> · 以用户体验为导向，提供更专业的服务</p>
+      <p class="muted">链接指向官方渠道与可信在线服务；安装前请核验发布方与证书。</p>
+    </footer>
+
+    <dialog id="detail-dialog" class="dialog">
+      <form method="dialog" class="dialog-panel">
+        <button class="dialog-close" value="cancel" aria-label="关闭">×</button>
+        <div id="detail-body"></div>
+      </form>
+    </dialog>
+
+    <script src="./data.js"></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
