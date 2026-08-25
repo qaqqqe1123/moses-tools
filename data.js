@@ -365,19 +365,6 @@ window.SITE_DATA={
           ]
         },
         {
-          "id": "telegram",
-          "name": "Telegram Desktop",
-          "desc": "免费跨平台通讯（需自备网络环境）",
-          "version": "官方最新",
-          "size": "约 40MB",
-          "platform": "Windows",
-          "official": "https://desktop.telegram.org/",
-          "download": "https://desktop.telegram.org/",
-          "tags": [
-            "免费"
-          ]
-        },
-        {
           "id": "dingtalk",
           "name": "钉钉",
           "desc": "工作沟通与会议",
