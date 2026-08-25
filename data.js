@@ -394,6 +394,57 @@ window.SITE_DATA={
       ]
     },
     {
+      "id": "remote",
+      "name": "远程控制",
+      "desc": "远程协助与桌面连接",
+      "items": [
+        {
+          "id": "todesk",
+          "name": "ToDesk",
+          "desc": "国内常用远程控制，连接稳定，支持文件传输与多屏",
+          "version": "官方最新",
+          "size": "约 80MB",
+          "platform": "Windows",
+          "official": "https://www.todesk.com/",
+          "download": "https://www.todesk.com/download.html",
+          "tags": [
+            "推荐",
+            "国内",
+            "官方"
+          ]
+        },
+        {
+          "id": "sunlogin",
+          "name": "向日葵远程控制",
+          "desc": "贝锐出品，远程桌面、文件传输与开机唤醒",
+          "version": "个人版",
+          "size": "约 60MB",
+          "platform": "Windows",
+          "official": "https://sunlogin.oray.com/",
+          "download": "https://sunlogin.oray.com/download",
+          "tags": [
+            "推荐",
+            "国内",
+            "官方"
+          ]
+        },
+        {
+          "id": "anydesk",
+          "name": "AnyDesk",
+          "desc": "轻量跨平台远程桌面，个人免费使用",
+          "version": "官方最新",
+          "size": "约 5MB",
+          "platform": "Windows",
+          "official": "https://anydesk.com/zhs",
+          "download": "https://anydesk.com/zhs/downloads/windows",
+          "tags": [
+            "免费",
+            "官方"
+          ]
+        }
+      ]
+    },
+    {
       "id": "media",
       "name": "影音播放（免费）",
       "desc": "视频与音频",
